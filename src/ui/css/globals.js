@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     max-width: 100vw;
     overflow-x: hidden;
+    font-family: var(--font-mono);
   }
   body {
     color: rgb(var(--foreground-rgb));

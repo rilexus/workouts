@@ -6,6 +6,14 @@ import StylelessButton from "ui/components/buttons/StylelessButton/StylelessButt
 const Button = styled(StylelessButton)`
   padding: 1rem 2rem;
   ${rounded2xl};
+  background-color: orange;
+
+  transform: scale(1);
+  transition: transform 70ms;
+
+  &:active {
+    transform: scale(0.97);
+  }
 `;
 
 const MainButton = ({ children }) => {

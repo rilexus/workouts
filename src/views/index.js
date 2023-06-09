@@ -1,1 +1,2 @@
-export {default as ExerciseList} from './ExerciseList/ExerciseList'
+export * from "./ExerciseList";
+export * from "./Workout";
