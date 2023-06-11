@@ -1,4 +1,5 @@
 const basicWorkout = {
+  id: "Basic",
   name: "Basic",
   exercises: [
     {

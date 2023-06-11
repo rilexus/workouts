@@ -26,7 +26,7 @@ const Workout = () => {
   let { id } = useParams();
   const workout = useWorkout(id);
 
-  console.log(workout);
+  console.log(workout, id);
   const currentExercise = workout.exercises[0];
 
   return (

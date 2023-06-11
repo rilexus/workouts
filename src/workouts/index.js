@@ -1,7 +1,5 @@
 import basicWorkout from "./basicWorkout";
 
-const workouts = {
-  basic: basicWorkout,
-};
+const workouts = [basicWorkout];
 
 export default workouts;

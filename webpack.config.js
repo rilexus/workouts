@@ -3,7 +3,7 @@ const webpackProductionConfig = require("./webpack.production");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require("webpack-merge");
 const { resolve } = require("path");
-const WorkboxPlugin = require("workbox-webpack-plugin");
+// const WorkboxPlugin = require("workbox-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const commonWebpackConfig = (env) => {
@@ -13,9 +13,10 @@ const commonWebpackConfig = (env) => {
       new CopyPlugin({
         patterns: [
           // copy files from "public" to "dist" filder during build time
-          resolve(__dirname, "public", "icon_512.png"),
-          resolve(__dirname, "public", "icon_192.png"),
-          resolve(__dirname, "public", "manifest.json"),
+          {
+            from: resolve(__dirname, "public", "images"),
+            to: resolve(__dirname, "dist", "images"),
+          },
         ],
       }),
       new HtmlWebpackPlugin({
@@ -24,12 +25,12 @@ const commonWebpackConfig = (env) => {
         filename: "index.html",
         template: resolve(__dirname, "public", "index.html"),
       }),
-      new WorkboxPlugin.GenerateSW({
-        // these options encourage the ServiceWorkers to get in there fast
-        // and not allow any straggling "old" SWs to hang around
-        clientsClaim: true,
-        skipWaiting: true,
-      }),
+      // new WorkboxPlugin.GenerateSW({
+      //   // these options encourage the ServiceWorkers to get in there fast
+      //   // and not allow any straggling "old" SWs to hang around
+      //   clientsClaim: true,
+      //   skipWaiting: true,
+      // }),
     ],
     resolve: {
       alias: {

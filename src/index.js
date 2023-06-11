@@ -5,7 +5,7 @@ import { GlobalStyle } from "ui/css";
 import { ExerciseList } from "./views";
 import { Outlet, Route, Routes, BrowserRouter } from "react-router-dom";
 import Countdown from "views/Countdown/Countdown";
-import { Workout } from "views";
+import { Workout, WorkoutsList } from "views";
 
 const Div = styled.div``;
 
@@ -27,8 +27,12 @@ const Root = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<ExerciseList />} />
+          <Route index element={<WorkoutsList />} />
           <Route path="countdown" element={<Countdown />} />
+          <Route path="countdown" element={<Countdown />} />
+          <Route path="exercises">
+            <Route path={":id"} element={<ExerciseList />} />
+          </Route>
           <Route path="workout">
             <Route path=":id" element={<Workout />} />
           </Route>
@@ -48,16 +52,3 @@ const Root = () => {
     </BrowserRouter>
   );
 })();
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((registration) => {
-        console.log("SW registered: ", registration);
-      })
-      .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
-      });
-  });
-}

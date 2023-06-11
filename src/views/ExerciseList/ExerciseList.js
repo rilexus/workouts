@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { flex } from "ui/css";
 import { justifyBetween } from "ui/css/justify";
 import { PrimaryTitle } from "ui/components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import basicWorkout from "../../workouts/basicWorkout";
+import { useWorkout } from "hooks";
 
 const Li = styled.li`
   padding: 1rem 1rem;
@@ -14,6 +15,11 @@ const Li = styled.li`
 `;
 
 const ExerciseList = () => {
+  const { id } = useParams();
+  const workout = useWorkout(id);
+
+  console.log(id, workout);
+
   return (
     <div data-testid="ExerciseList">
       <PrimaryTitle>Basic Workout</PrimaryTitle>
@@ -30,7 +36,7 @@ const ExerciseList = () => {
       <Link to={"/countdown?time=2&workout=basic"}>
         <MainButton>Start</MainButton>
       </Link>
-      <Link to={"/workout/basic"}>
+      <Link to={`/workout/${workout.id}`}>
         <MainButton>Workout</MainButton>
       </Link>
     </div>

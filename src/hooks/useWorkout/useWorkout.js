@@ -1,10 +1,11 @@
 import workouts from "../../workouts";
 
 const useWorkout = (id) => {
-  if (!(id in workouts)) {
+  const workout = workouts.find((workout) => workout.id === id);
+  if (!workout) {
     console.error(`${id} is not in Workouts!`);
   }
-  return workouts[id];
+  return workout;
 };
 
 export default useWorkout;
