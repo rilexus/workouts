@@ -3,9 +3,23 @@ import { useParams } from "react-router-dom";
 import { useWorkout } from "hooks";
 import styled from "styled-components";
 import elasticFontSize from "ui/css/utils/elasticFontSize";
+import { PauseButton, StopButton } from "ui/components";
 
 const ExerciseName = styled.h2`
   ${elasticFontSize(30, 70, 300, 1000)}
+`;
+
+const BGGif = styled.img`
+  width: 100vw;
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+`;
+
+const View = styled.div`
+  height: 100vh;
+  width: 100vw;
+  position: relative;
 `;
 
 const Workout = () => {
@@ -16,7 +30,7 @@ const Workout = () => {
   const currentExercise = workout.exercises[0];
 
   return (
-    <div>
+    <View>
       <div
         style={{
           display: "flex",
@@ -39,7 +53,24 @@ const Workout = () => {
       >
         <ExerciseName>{currentExercise.name}</ExerciseName>
       </div>
-    </div>
+      <BGGif
+        src="https://i.giphy.com/media/RgtuKqJ8rPII4qdRjp/giphy.webp"
+        alt=""
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "100px",
+          width: "100vw",
+          left: 0,
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <PauseButton />
+        <StopButton />
+      </div>
+    </View>
   );
 };
 

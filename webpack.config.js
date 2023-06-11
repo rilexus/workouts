@@ -3,16 +3,32 @@ const webpackProductionConfig = require("./webpack.production");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require("webpack-merge");
 const { resolve } = require("path");
+const WorkboxPlugin = require("workbox-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const commonWebpackConfig = (env) => {
   return {
     entry: resolve(__dirname, "src", "index.js"),
     plugins: [
+      new CopyPlugin({
+        patterns: [
+          // copy files from "public" to "dist" filder during build time
+          resolve(__dirname, "public", "icon_512.png"),
+          resolve(__dirname, "public", "icon_192.png"),
+          resolve(__dirname, "public", "manifest.json"),
+        ],
+      }),
       new HtmlWebpackPlugin({
         title: "Workouts",
         minify: true,
         filename: "index.html",
         template: resolve(__dirname, "public", "index.html"),
+      }),
+      new WorkboxPlugin.GenerateSW({
+        // these options encourage the ServiceWorkers to get in there fast
+        // and not allow any straggling "old" SWs to hang around
+        clientsClaim: true,
+        skipWaiting: true,
       }),
     ],
     resolve: {

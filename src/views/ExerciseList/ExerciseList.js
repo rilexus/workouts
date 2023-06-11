@@ -1,5 +1,5 @@
 import React from "react";
-import { MainButton } from "ui/components/buttons";
+import { MainButton } from "ui/components";
 import styled from "styled-components";
 import { flex } from "ui/css";
 import { justifyBetween } from "ui/css/justify";
@@ -18,10 +18,10 @@ const ExerciseList = () => {
     <div data-testid="ExerciseList">
       <PrimaryTitle>Basic Workout</PrimaryTitle>
       <ul>
-        {basicWorkout.exercises.map(({ id, duration, title }) => {
+        {basicWorkout.exercises.map(({ id, duration, name }) => {
           return (
-            <Li id={title} key={title}>
-              <div>{title}</div>
+            <Li id={name} key={name}>
+              <div>{name}</div>
               <div>{duration}</div>
             </Li>
           );

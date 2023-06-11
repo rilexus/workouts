@@ -32,8 +32,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow: hidden;
     font-family: var(--font-mono);
+    user-select: none;
   }
   body {
     color: rgb(var(--foreground-rgb));

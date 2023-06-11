@@ -7,10 +7,10 @@ module.exports = () => {
     devtool: "inline-source-map",
     plugins: [new HotModuleReplacementPlugin({})],
     devServer: {
+      bonjour: true,
       static: {
         directory: resolve(__dirname, "dist"),
       },
-      host: "localhost",
       historyApiFallback: true,
       compress: true,
       port: 3000,
