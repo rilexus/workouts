@@ -1,24 +1,24 @@
 import React from "react";
-import workouts from "../../workouts";
 import { Link } from "react-router-dom";
 import { useWorkouts } from "hooks/useWorkouts";
+import { List, View } from "ui/components";
 
 const WorkoutsList = () => {
   const workouts = useWorkouts();
 
   return (
-    <div>
+    <View>
       <h1>Workouts</h1>
-      <ul>
+      <List>
         {workouts.map(({ name, id }) => {
           return (
-            <li id={id}>
+            <List.Element key={id} id={id}>
               <Link to={`/exercises/${id}`}>{name}</Link>
-            </li>
+            </List.Element>
           );
         })}
-      </ul>
-    </div>
+      </List>
+    </View>
   );
 };
 

@@ -2,13 +2,12 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useNavigate } from "react-router-dom";
+import { Center } from "ui/components";
 
 const Countdown = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const params = Object.fromEntries(searchParams.entries());
-
-  console.log(params);
 
   const [countdown, { pause, reset, start, handleDone }] = useCountdown({
     sec: Number(params.time),
@@ -18,10 +17,8 @@ const Countdown = () => {
   });
 
   return (
-    <div
+    <Center
       style={{
-        display: "flex",
-        justifyContent: "center",
         alignItems: "center",
         height: "100vh",
       }}
@@ -33,7 +30,7 @@ const Countdown = () => {
       >
         {countdown}
       </div>
-    </div>
+    </Center>
   );
 };
 

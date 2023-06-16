@@ -1,43 +1,45 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useInterval } from "hooks/useInterval";
 
-const useInterval = (callback, ms) => {
-  const intervalRef = useRef(null);
-
-  useEffect(() => {
-    intervalRef.current = setInterval(callback, ms);
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  }, [callback]);
-
-  return intervalRef.current;
+const COUNTDOWN_STATE = {
+  IDLE: "IDLE",
+  PAUSED: "PAUSED",
+  RUNNING: "RUNNING",
+  EXPIRED: "EXPIRED",
 };
 
 const useCountdown = ({ sec, onDone, immediate = true }) => {
-  const [state, setState] = useState("IDLE");
+  const [state, setState] = useState(COUNTDOWN_STATE.IDLE);
 
   const [countdown, setCountdown] = useState(sec);
 
-  const pause = () => {
-    setState("PAUSED");
-  };
+  const pause = useCallback(() => {
+    setState(COUNTDOWN_STATE.PAUSED);
+  }, []);
 
-  const start = () => {
-    setState("RUNNING");
-  };
+  const start = useCallback(() => {
+    setState(COUNTDOWN_STATE.RUNNING);
+  }, []);
 
-  const reset = () => {
-    setState("IDLE");
+  const reset = useCallback((sec) => {
+    setState(COUNTDOWN_STATE.IDLE);
     setCountdown(sec);
-  };
+  }, []);
 
-  const decrement = () => {
-    if (state === "RUNNING" && countdown > 0) {
+  const decrement = useCallback(() => {
+    if (state === COUNTDOWN_STATE.RUNNING && countdown > 0) {
       setCountdown((c) => c - 1);
     }
-  };
+  }, [state, countdown]);
 
-  useInterval(decrement, 1000);
+  const handle = useCallback(() => {
+    decrement();
+    if (countdown === 0) {
+      setState(COUNTDOWN_STATE.EXPIRED);
+    }
+  }, [decrement, countdown]);
+
+  useInterval(handle, 1000);
 
   useEffect(() => {
     if (immediate) {
@@ -51,7 +53,8 @@ const useCountdown = ({ sec, onDone, immediate = true }) => {
     }
   }, [countdown]);
 
-  return [countdown, { pause, reset, start }];
+  return [countdown, { pause, reset, start, state }];
 };
 
+export { COUNTDOWN_STATE };
 export default useCountdown;

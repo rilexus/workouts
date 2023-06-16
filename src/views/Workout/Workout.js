@@ -1,9 +1,16 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useWorkout } from "hooks";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCountdown, useWorkout } from "hooks";
+import { COUNTDOWN_STATE } from "hooks/useCountdown";
 import styled from "styled-components";
 import elasticFontSize from "ui/css/utils/elasticFontSize";
-import { PauseButton, StopButton } from "ui/components";
+import {
+  Center,
+  PauseButton,
+  StopButton,
+  Countdown,
+  PlayButton,
+} from "ui/components";
 
 const ExerciseName = styled.h2`
   ${elasticFontSize(30, 70, 300, 1000)}
@@ -25,18 +32,39 @@ const View = styled.div`
 const Workout = () => {
   let { id } = useParams();
   const workout = useWorkout(id);
+  const navigate = useNavigate();
 
-  console.log(workout, id);
-  const currentExercise = workout.exercises[0];
+  const [exerciseIndex, setExerciseIndex] = useState(0);
+
+  const exercises = workout.exercises;
+  const currentExercise = exercises[exerciseIndex];
+  const duration = currentExercise.duration;
+
+  const [countdown, { pause, reset, stop, state, start }] = useCountdown({
+    sec: duration,
+  });
+
+  const nextExercise = useCallback(() => {
+    if (exercises.length - 1 > exerciseIndex) {
+      setExerciseIndex((i) => i + 1);
+    }
+  }, [exercises, exerciseIndex]);
+
+  const handleStop = useCallback(() => {
+    navigate(`/exercises/${id}`);
+  }, [navigate]);
+
+  useEffect(() => {
+    if (state === "EXPIRED") {
+      nextExercise();
+      reset(duration);
+      start();
+    }
+  }, [countdown, state, nextExercise]);
 
   return (
     <View>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <Center>
         <h1
           style={{
             fontSize: "2rem",
@@ -44,19 +72,20 @@ const Workout = () => {
         >
           {workout.name}
         </h1>
-      </div>
-      <div
+      </Center>
+      <Center>
+        <ExerciseName>{currentExercise.name}</ExerciseName>
+      </Center>
+
+      <BGGif src={currentExercise.media[0].src} alt="" />
+      <Countdown
         style={{
-          display: "flex",
-          justifyContent: "center",
+          textAlign: "center",
+          zIndex: 100,
         }}
       >
-        <ExerciseName>{currentExercise.name}</ExerciseName>
-      </div>
-      <BGGif
-        src="https://i.giphy.com/media/RgtuKqJ8rPII4qdRjp/giphy.webp"
-        alt=""
-      />
+        {countdown}
+      </Countdown>
       <div
         style={{
           position: "absolute",
@@ -67,8 +96,15 @@ const Workout = () => {
           justifyContent: "space-evenly",
         }}
       >
-        <PauseButton />
-        <StopButton />
+        {state === COUNTDOWN_STATE.PAUSED ? <PlayButton /> : null}
+        {state === COUNTDOWN_STATE.RUNNING ? (
+          <PauseButton
+            onClick={() => {
+              pause();
+            }}
+          />
+        ) : null}
+        <StopButton onClick={handleStop} />
       </div>
     </View>
   );

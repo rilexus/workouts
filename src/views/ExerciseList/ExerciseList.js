@@ -1,5 +1,5 @@
 import React from "react";
-import { MainButton } from "ui/components";
+import { List, MainButton, View } from "ui/components";
 import styled from "styled-components";
 import { flex } from "ui/css";
 import { justifyBetween } from "ui/css/justify";
@@ -8,22 +8,30 @@ import { Link, useParams } from "react-router-dom";
 import basicWorkout from "../../workouts/basicWorkout";
 import { useWorkout } from "hooks";
 
-const Li = styled.li`
+const Li = styled(List.Element)`
   padding: 1rem 1rem;
   ${flex};
   ${justifyBetween};
+`;
+
+const StartButton = styled(MainButton)`
+  width: 100%;
 `;
 
 const ExerciseList = () => {
   const { id } = useParams();
   const workout = useWorkout(id);
 
-  console.log(id, workout);
-
   return (
-    <div data-testid="ExerciseList">
+    <View data-testid="ExerciseList">
       <PrimaryTitle>Basic Workout</PrimaryTitle>
-      <ul>
+      <Link to={`/countdown?time=2&workout=${id}`}>
+        <StartButton>Start</StartButton>
+      </Link>
+      {/*<Link to={`/workout/${workout.id}`}>*/}
+      {/*  <MainButton>Workout</MainButton>*/}
+      {/*</Link>*/}
+      <List>
         {basicWorkout.exercises.map(({ id, duration, name }) => {
           return (
             <Li id={name} key={name}>
@@ -32,14 +40,8 @@ const ExerciseList = () => {
             </Li>
           );
         })}
-      </ul>
-      <Link to={"/countdown?time=2&workout=basic"}>
-        <MainButton>Start</MainButton>
-      </Link>
-      <Link to={`/workout/${workout.id}`}>
-        <MainButton>Workout</MainButton>
-      </Link>
-    </div>
+      </List>
+    </View>
   );
 };
 

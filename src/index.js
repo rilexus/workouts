@@ -6,6 +6,7 @@ import { ExerciseList } from "./views";
 import { Outlet, Route, Routes, BrowserRouter } from "react-router-dom";
 import Countdown from "views/Countdown/Countdown";
 import { Workout, WorkoutsList } from "views";
+import { Theme } from "ui/components";
 
 const Div = styled.div``;
 
@@ -25,20 +26,22 @@ const Root = () => {
   return (
     <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<WorkoutsList />} />
-          <Route path="countdown" element={<Countdown />} />
-          <Route path="countdown" element={<Countdown />} />
-          <Route path="exercises">
-            <Route path={":id"} element={<ExerciseList />} />
+      <Theme>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<WorkoutsList />} />
+            <Route path="countdown" element={<Countdown />} />
+            <Route path="countdown" element={<Countdown />} />
+            <Route path="exercises">
+              <Route path={":id"} element={<ExerciseList />} />
+            </Route>
+            <Route path="workout">
+              <Route path=":id" element={<Workout />} />
+            </Route>
           </Route>
-          <Route path="workout">
-            <Route path=":id" element={<Workout />} />
-          </Route>
-        </Route>
-        <Route path="*" element={<NoMatch />} />
-      </Routes>
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </Theme>
     </>
   );
 };

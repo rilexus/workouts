@@ -11,7 +11,9 @@ module.exports = () => {
       static: {
         directory: resolve(__dirname, "dist"),
       },
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: "index.html",
+      },
       compress: true,
       port: 3000,
       hot: true,

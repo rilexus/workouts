@@ -6,9 +6,7 @@ const GlobalStyle = createGlobalStyle`
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
     
-    --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+    --font-mono: 'Roboto', Helvetica;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -32,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     max-width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: var(--font-mono);
     user-select: none;
   }
