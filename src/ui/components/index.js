@@ -5,3 +5,4 @@ export * from "./View";
 export * from "./ThemeProvider";
 export * from "./Center";
 export * from "./Countdown";
+export * from "./Header";

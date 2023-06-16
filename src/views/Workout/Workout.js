@@ -10,6 +10,8 @@ import {
   StopButton,
   Countdown,
   PlayButton,
+  Header,
+  PrimaryTitle,
 } from "ui/components";
 
 const ExerciseName = styled.h2`
@@ -18,6 +20,7 @@ const ExerciseName = styled.h2`
 
 const BGGif = styled.img`
   width: 100vw;
+  z-index: -10;
   position: absolute;
   inset: 0;
   opacity: 0.3;
@@ -64,15 +67,11 @@ const Workout = () => {
 
   return (
     <View>
-      <Center>
-        <h1
-          style={{
-            fontSize: "2rem",
-          }}
-        >
-          {workout.name}
-        </h1>
-      </Center>
+      <Header>
+        <Center>
+          <PrimaryTitle>{workout.name}</PrimaryTitle>
+        </Center>
+      </Header>
       <Center>
         <ExerciseName>{currentExercise.name}</ExerciseName>
       </Center>
@@ -96,7 +95,13 @@ const Workout = () => {
           justifyContent: "space-evenly",
         }}
       >
-        {state === COUNTDOWN_STATE.PAUSED ? <PlayButton /> : null}
+        {state === COUNTDOWN_STATE.PAUSED ? (
+          <PlayButton
+            onClick={() => {
+              start();
+            }}
+          />
+        ) : null}
         {state === COUNTDOWN_STATE.RUNNING ? (
           <PauseButton
             onClick={() => {

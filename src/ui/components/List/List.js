@@ -6,7 +6,8 @@ const List = styled.ul`
 `;
 const ListElement = styled.li`
   border-bottom: 1px solid ${gray("90")};
-  padding: 1rem 0;
+  padding: 1rem 1rem;
+  font-size: 1rem;
 `;
 
 List.Element = ListElement;

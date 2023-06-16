@@ -1,5 +1,5 @@
 import React from "react";
-import { List, MainButton, View } from "ui/components";
+import { Header, List, MainButton, View } from "ui/components";
 import styled from "styled-components";
 import { flex } from "ui/css";
 import { justifyBetween } from "ui/css/justify";
@@ -24,7 +24,9 @@ const ExerciseList = () => {
 
   return (
     <View data-testid="ExerciseList">
-      <PrimaryTitle>Basic Workout</PrimaryTitle>
+      <Header>
+        <PrimaryTitle>{workout.name}</PrimaryTitle>
+      </Header>
       <Link to={`/countdown?time=2&workout=${id}`}>
         <StartButton>Start</StartButton>
       </Link>
@@ -36,7 +38,14 @@ const ExerciseList = () => {
           return (
             <Li id={name} key={name}>
               <div>{name}</div>
-              <div>{duration}</div>
+              <div
+                style={{
+                  color: "gray",
+                }}
+              >
+                <span>{duration} </span>
+                <span>sec</span>
+              </div>
             </Li>
           );
         })}
