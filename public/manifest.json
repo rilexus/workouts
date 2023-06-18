@@ -1,5 +1,10 @@
 {
+  "name": "Workouts",
   "short_name": "Workouts",
+  "description": "Workouts Application",
+  "theme_color": "black",
+  "background_color": "black",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/images/icon_512.png",

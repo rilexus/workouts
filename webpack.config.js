@@ -8,7 +8,10 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 const commonWebpackConfig = (env) => {
   return {
-    entry: resolve(__dirname, "src", "index.js"),
+    entry: {
+      index: resolve(__dirname, "src", "index.js"),
+      "service-worker": resolve(__dirname, "src", "service-worker.js"),
+    },
     plugins: [
       new CopyPlugin({
         patterns: [
@@ -16,6 +19,10 @@ const commonWebpackConfig = (env) => {
           {
             from: resolve(__dirname, "public", "images"),
             to: resolve(__dirname, "dist", "images"),
+          },
+          {
+            from: resolve(__dirname, "public", "manifest.json"),
+            to: resolve(__dirname, "dist", "manifest.json"),
           },
         ],
       }),
@@ -67,7 +74,7 @@ const commonWebpackConfig = (env) => {
     output: {
       clean: true,
       path: resolve(__dirname, "dist"),
-      filename: "index.js",
+      filename: "[name].js",
     },
   };
 };
