@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header, List, MainButton, View } from "ui/components";
 import styled from "styled-components";
 import { flex } from "ui/css";
@@ -22,6 +22,14 @@ const ExerciseList = () => {
   const { id } = useParams();
   const workout = useWorkout(id);
 
+  useEffect(() => {
+    // all medias will be cached as soon as the user clicks on a workout
+    let mediaPromises = [];
+    workout.exercises.forEach(({ media }) => {
+      mediaPromises = media.map(({ src }) => fetch(src));
+    });
+  }, [workout]);
+
   return (
     <View data-testid="ExerciseList">
       <Header>
@@ -30,9 +38,6 @@ const ExerciseList = () => {
       <Link to={`/countdown?time=2&workout=${id}`}>
         <StartButton>Start</StartButton>
       </Link>
-      {/*<Link to={`/workout/${workout.id}`}>*/}
-      {/*  <MainButton>Workout</MainButton>*/}
-      {/*</Link>*/}
       <List>
         {basicWorkout.exercises.map(({ id, duration, name }) => {
           return (
