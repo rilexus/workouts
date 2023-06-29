@@ -10,7 +10,14 @@ const Button = styled(RoundButton)`
 const StopButton = (props) => {
   return (
     <Button {...props}>
-      <CloseIconOutlined height={"2rem"} width={"2rem"} fill={"white"} />
+      <CloseIconOutlined
+        style={{
+          display: "block",
+        }}
+        height={"2rem"}
+        width={"2rem"}
+        fill={"white"}
+      />
     </Button>
   );
 };

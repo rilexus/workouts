@@ -7,9 +7,11 @@ const PlayIconFilled = ({
   viewBox = "0 0 16 16",
   height = "1em",
   width = "1em",
+  style,
 }) => {
   return (
     <svg
+      style={style}
       stroke={stroke}
       fill={fill}
       strokeWidth={strokeWidth}

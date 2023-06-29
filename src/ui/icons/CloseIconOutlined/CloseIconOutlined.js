@@ -7,9 +7,11 @@ const CloseIconOutlined = ({
   viewBox = "0 0 24 24",
   height = "1em",
   width = "1em",
+  style,
 }) => {
   return (
     <svg
+      style={style}
       stroke={stroke}
       fill="none"
       strokeWidth={strokeWidth}

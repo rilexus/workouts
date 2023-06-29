@@ -15,7 +15,7 @@ module.exports = () => {
         index: "index.html",
       },
       compress: true,
-      port: 3000,
+      port: 8080,
       hot: true,
     },
   };

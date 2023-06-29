@@ -13,6 +13,7 @@ import {
   Header,
   PrimaryTitle,
 } from "ui/components";
+import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 
 const ExerciseName = styled.h2`
   ${elasticFontSize(30, 70, 300, 1000)}
@@ -36,6 +37,7 @@ const Workout = () => {
   let { id } = useParams();
   const workout = useWorkout(id);
   const navigate = useNavigate();
+  const [speech, speak] = useSpeech();
 
   const [exerciseIndex, setExerciseIndex] = useState(0);
 
@@ -46,6 +48,10 @@ const Workout = () => {
   const [countdown, { pause, reset, stop, state, start }] = useCountdown({
     sec: duration,
   });
+
+  useEffect(() => {
+    speak(countdown);
+  }, [countdown]);
 
   const nextExercise = useCallback(() => {
     if (exercises.length - 1 > exerciseIndex) {

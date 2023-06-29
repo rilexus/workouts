@@ -7,9 +7,10 @@ import { PrimaryTitle } from "ui/components";
 import { Link, useParams } from "react-router-dom";
 import basicWorkout from "../../workouts/basicWorkout";
 import { useWorkout } from "hooks";
+import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 
 const Li = styled(List.Element)`
-  padding: 1rem 1rem;
+  padding: 1.1rem 0;
   ${flex};
   ${justifyBetween};
 `;
@@ -21,12 +22,14 @@ const StartButton = styled(MainButton)`
 const ExerciseList = () => {
   const { id } = useParams();
   const workout = useWorkout(id);
+  const [speech, speak] = useSpeech();
 
   useEffect(() => {
+    speak(workout.name);
     // all medias will be cached as soon as the user clicks on a workout
     let mediaPromises = [];
     workout.exercises.forEach(({ media }) => {
-      mediaPromises = media.map(({ src }) => fetch(src));
+      mediaPromises = [...mediaPromises, ...media.map(({ src }) => fetch(src))];
     });
   }, [workout]);
 

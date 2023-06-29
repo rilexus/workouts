@@ -11,7 +11,14 @@ const Button = styled(RoundButton)`
 const PlayButton = (props) => {
   return (
     <Button {...props}>
-      <PlayIconFilled height={"2rem"} width={"2rem"} fill={"yellow"} />
+      <PlayIconFilled
+        style={{
+          display: "block",
+        }}
+        height={"2rem"}
+        width={"2rem"}
+        fill={"yellow"}
+      />
     </Button>
   );
 };

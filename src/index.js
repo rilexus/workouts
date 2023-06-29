@@ -1,4 +1,10 @@
-import React, { Suspense, lazy } from "react";
+import React, {
+  Suspense,
+  lazy,
+  createContext,
+  useState,
+  useContext,
+} from "react";
 import { createRoot } from "react-dom/client";
 import styled from "styled-components";
 import { GlobalStyle } from "ui/css";
@@ -7,6 +13,7 @@ import { Outlet, Route, Routes, BrowserRouter } from "react-router-dom";
 import Countdown from "views/Countdown/Countdown";
 import { Workout, WorkoutsList } from "views";
 import { Theme } from "ui/components";
+import { SpeechProvider } from "./providers/SpeechProvider/SpeechProvider";
 
 const Layout = () => {
   return (
@@ -25,20 +32,22 @@ const Root = () => {
     <BrowserRouter>
       <GlobalStyle />
       <Theme>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<WorkoutsList />} />
-            <Route path="countdown" element={<Countdown />} />
-            <Route path="countdown" element={<Countdown />} />
-            <Route path="exercises">
-              <Route path={":id"} element={<ExerciseList />} />
+        <SpeechProvider>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<WorkoutsList />} />
+              <Route path="countdown" element={<Countdown />} />
+              <Route path="countdown" element={<Countdown />} />
+              <Route path="exercises">
+                <Route path={":id"} element={<ExerciseList />} />
+              </Route>
+              <Route path="workout">
+                <Route path=":id" element={<Workout />} />
+              </Route>
             </Route>
-            <Route path="workout">
-              <Route path=":id" element={<Workout />} />
-            </Route>
-          </Route>
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+        </SpeechProvider>
       </Theme>
     </BrowserRouter>
   );

@@ -4,7 +4,8 @@ const PrimaryTitle = ({ children }) => {
   return (
     <h1
       style={{
-        fontSize: "2rem",
+        fontWeight: 400,
+        fontSize: "1.5rem",
       }}
     >
       {children}
