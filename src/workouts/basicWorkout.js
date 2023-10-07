@@ -1,6 +1,17 @@
 const basicWorkout = {
-  id: "Basic",
+  id: "basic1_workout",
   name: "Basic",
+  exerciseIds: [
+    "basic1_exercise1",
+    "basic1_exercise2",
+    "basic1_exercise3",
+    "basic1_exercise5",
+    "basic1_exercise6",
+    "basic1_exercise7",
+    "basic1_exercise8",
+    "basic1_exercise9",
+    "basic1_exercise10",
+  ],
   exercises: [
     {
       id: "Some1_1",
@@ -100,22 +111,22 @@ const basicWorkout = {
         },
       ],
     },
-    {
-      id: "Some3_10",
-      name: "Push-Ups (with Rotation)",
-      duration: 5,
-      media: [{ src: "" }],
-    },
-    {
-      id: "Some3_11",
-      name: "Side Planks",
-      duration: 5,
-      media: [
-        {
-          src: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExODg2MGI5YmRiNTM2NmMxM2ViZDQ5MzRiNjg0NzY5ODk1N2ZmMWI4MSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/UH31evaG9vx82Cj0JJ/giphy.gif",
-        },
-      ],
-    },
+    // {
+    //   id: "Some3_10",
+    //   name: "Push-Ups (with Rotation)",
+    //   duration: 5,
+    //   media: [{ src: "" }],
+    // },
+    // {
+    //   id: "Some3_11",
+    //   name: "Side Planks",
+    //   duration: 5,
+    //   media: [
+    //     {
+    //       src: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExODg2MGI5YmRiNTM2NmMxM2ViZDQ5MzRiNjg0NzY5ODk1N2ZmMWI4MSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/UH31evaG9vx82Cj0JJ/giphy.gif",
+    //     },
+    //   ],
+    // },
   ],
 };
 export default basicWorkout;

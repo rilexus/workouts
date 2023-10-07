@@ -1,7 +1,9 @@
 const { resolve } = require("path");
 const { HotModuleReplacementPlugin } = require("webpack");
 
-module.exports = () => {
+module.exports = (args) => {
+  console.log(args);
+  const { port } = args;
   return {
     mode: "development",
     devtool: "inline-source-map",
@@ -15,7 +17,7 @@ module.exports = () => {
         index: "index.html",
       },
       compress: true,
-      port: 8080,
+      port,
       hot: true,
     },
   };

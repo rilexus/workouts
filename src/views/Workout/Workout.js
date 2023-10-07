@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCountdown, useWorkout } from "hooks";
+import { useCountdown, useExercise, useWorkout } from "hooks";
 import { COUNTDOWN_STATE } from "hooks/useCountdown";
 import styled from "styled-components";
 import elasticFontSize from "ui/css/utils/elasticFontSize";
@@ -14,6 +14,7 @@ import {
   PrimaryTitle,
 } from "ui/components";
 import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
+import exercises from "../../workouts/exercises";
 
 const ExerciseName = styled.h2`
   ${elasticFontSize(30, 70, 300, 1000)}
@@ -41,9 +42,13 @@ const Workout = () => {
 
   const [exerciseIndex, setExerciseIndex] = useState(0);
 
-  const exercises = workout.exercises;
-  const currentExercise = exercises[exerciseIndex];
+  const exercises = workout.exerciseIds;
+  const currentExerciseId = exercises[exerciseIndex];
+
+  const currentExercise = useExercise(currentExerciseId);
   const duration = currentExercise.duration;
+
+  const exercisesCount = exercises.length;
 
   const [countdown, { pause, reset, stop, state, start }] = useCountdown({
     sec: duration,
@@ -53,15 +58,17 @@ const Workout = () => {
     speak(countdown);
   }, [countdown]);
 
-  const nextExercise = useCallback(() => {
-    if (exercises.length - 1 > exerciseIndex) {
-      setExerciseIndex((i) => i + 1);
-    }
-  }, [exercises, exerciseIndex]);
-
   const handleStop = useCallback(() => {
     navigate(`/exercises/${id}`);
-  }, [navigate]);
+  }, [navigate, id]);
+
+  const nextExercise = useCallback(() => {
+    if (exercisesCount - 1 > exerciseIndex) {
+      setExerciseIndex((i) => i + 1);
+    } else if (exercisesCount - 1 === exerciseIndex) {
+      handleStop();
+    }
+  }, [exercisesCount, exerciseIndex, handleStop]);
 
   useEffect(() => {
     if (state === "EXPIRED") {

@@ -1,16 +1,12 @@
 import React from "react";
 
+const style = {
+  fontWeight: 600,
+  fontSize: "2rem",
+};
+
 const PrimaryTitle = ({ children }) => {
-  return (
-    <h1
-      style={{
-        fontWeight: 400,
-        fontSize: "1.5rem",
-      }}
-    >
-      {children}
-    </h1>
-  );
+  return <h1 style={style}>{children}</h1>;
 };
 
 export default PrimaryTitle;

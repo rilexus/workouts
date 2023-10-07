@@ -14,6 +14,7 @@ import Countdown from "views/Countdown/Countdown";
 import { Workout, WorkoutsList } from "views";
 import { Theme } from "ui/components";
 import { SpeechProvider } from "./providers/SpeechProvider/SpeechProvider";
+import { Exercise } from "views/Exercise";
 
 const Layout = () => {
   return (
@@ -40,6 +41,9 @@ const Root = () => {
               <Route path="countdown" element={<Countdown />} />
               <Route path="exercises">
                 <Route path={":id"} element={<ExerciseList />} />
+              </Route>
+              <Route path="exercise">
+                <Route path={":id"} element={<Exercise />} />
               </Route>
               <Route path="workout">
                 <Route path=":id" element={<Workout />} />
