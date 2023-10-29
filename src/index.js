@@ -60,11 +60,20 @@ const Root = () => {
   );
 };
 
+const sleep = (ms) =>
+  new Promise((res) => {
+    setTimeout(res, ms);
+  });
+
 (async () => {
+  // prepare data here
+  await sleep(1000);
+  return {};
+})().then((appData) => {
   const container = document.getElementById("app");
   const root = createRoot(container);
   root.render(<Root />);
-})();
+});
 const registerSW = () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/service-worker.js");
