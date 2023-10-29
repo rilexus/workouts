@@ -1,10 +1,4 @@
-import React, {
-  Suspense,
-  lazy,
-  createContext,
-  useState,
-  useContext,
-} from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import styled from "styled-components";
 import { GlobalStyle } from "ui/css";
