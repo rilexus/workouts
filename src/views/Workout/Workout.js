@@ -36,13 +36,13 @@ const View = styled.div`
 
 const Workout = () => {
   let { id } = useParams();
-  const workout = useWorkout(id);
+  const { data: workout } = useWorkout(id);
   const navigate = useNavigate();
   const [speech, speak] = useSpeech();
 
   const [exerciseIndex, setExerciseIndex] = useState(0);
 
-  const exercises = workout.exerciseIds;
+  const exercises = workout.exercises;
   const currentExerciseId = exercises[exerciseIndex];
 
   const currentExercise = useExercise(currentExerciseId);

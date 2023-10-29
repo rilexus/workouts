@@ -15,6 +15,7 @@ import { Workout, WorkoutsList } from "views";
 import { Theme } from "ui/components";
 import { SpeechProvider } from "./providers/SpeechProvider/SpeechProvider";
 import { Exercise } from "views/Exercise";
+import { LinkProvider } from "./providers/LinkProvider";
 
 const Layout = () => {
   return (
@@ -30,30 +31,32 @@ const NoMatch = () => {
 
 const Root = () => {
   return (
-    <BrowserRouter>
+    <LinkProvider value={fetch}>
       <GlobalStyle />
       <Theme>
         <SpeechProvider>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<WorkoutsList />} />
-              <Route path="countdown" element={<Countdown />} />
-              <Route path="countdown" element={<Countdown />} />
-              <Route path="exercises">
-                <Route path={":id"} element={<ExerciseList />} />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<WorkoutsList />} />
+                <Route path="countdown" element={<Countdown />} />
+                <Route path="countdown" element={<Countdown />} />
+                <Route path="exercises">
+                  <Route path={":id"} element={<ExerciseList />} />
+                </Route>
+                <Route path="exercise">
+                  <Route path={":id"} element={<Exercise />} />
+                </Route>
+                <Route path="workout">
+                  <Route path=":id" element={<Workout />} />
+                </Route>
               </Route>
-              <Route path="exercise">
-                <Route path={":id"} element={<Exercise />} />
-              </Route>
-              <Route path="workout">
-                <Route path=":id" element={<Workout />} />
-              </Route>
-            </Route>
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
+          </BrowserRouter>
         </SpeechProvider>
       </Theme>
-    </BrowserRouter>
+    </LinkProvider>
   );
 };
 

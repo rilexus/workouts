@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { Header, List, MainButton, View } from "ui/components";
 import styled from "styled-components";
-import { flex } from "ui/css";
-import { justifyBetween } from "ui/css/justify";
 import { PrimaryTitle } from "ui/components";
 import { Link, useParams } from "react-router-dom";
-import basicWorkout from "../../workouts/basicWorkout";
 import { useStyle, useWorkout } from "hooks";
-import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 import { ArrowRightOutlined } from "ui/icons";
-import exercises from "../../workouts/exercises";
 import { useExercises } from "hooks/useExercises";
+import { STATUS } from "hooks/usePromise/usePromise";
+import { useLink } from "../../providers/LinkProvider";
 
 const Li = styled(List.Element)`
   padding: 0;
@@ -52,18 +49,23 @@ const ListElement = ({ name, duration }) => {
 
 const ExerciseList = () => {
   const { id } = useParams();
-  const workout = useWorkout(id);
-  const [speech, speak] = useSpeech();
+  const { data: workout, status } = useWorkout(id);
+  const { data: exercises, status: exercisesStatus } = useExercises(
+    workout?.exercises
+  );
 
-  const exercises = useExercises(workout.exerciseIds);
+  const fetch = useLink();
 
   useEffect(() => {
     // all medias will be cached as soon as the user clicks on a workout
-    let mediaPromises = [];
-    exercises.forEach(({ media }) => {
-      mediaPromises = [...mediaPromises, ...media.map(({ src }) => fetch(src))];
-    });
+    if (exercises) {
+      const mediaPromises = exercises.reduce((acc, { media }) => {
+        return [...acc, , ...media.map(({ src }) => fetch(src))];
+      }, []);
+    }
   }, [exercises]);
+
+  console.log({ exercises });
 
   const style = useStyle(
     {
@@ -74,25 +76,28 @@ const ExerciseList = () => {
   );
 
   return (
-    <View data-testid="ExerciseList">
-      <Header>
-        <PrimaryTitle>{workout.name}</PrimaryTitle>
-      </Header>
-      <Link to={`/countdown?time=2&workout=${id}`}>
-        <StartButton>Start</StartButton>
-      </Link>
-      <List>
-        {exercises.map(({ id, duration, name }) => {
-          return (
-            <Li id={name} key={name}>
-              <Link to={`/exercise/${id}`} style={style}>
-                <ListElement name={name} duration={duration} />
-              </Link>
-            </Li>
-          );
-        })}
-      </List>
-    </View>
+    status === STATUS.RESOLVED && (
+      <View data-testid="ExerciseList">
+        <Header>
+          <PrimaryTitle>{workout.name}</PrimaryTitle>
+        </Header>
+        <Link to={`/countdown?time=2&workout=${id}`}>
+          <StartButton>Start</StartButton>
+        </Link>
+        <List>
+          {exercisesStatus === STATUS.RESOLVED &&
+            exercises.map(({ id, duration, name }) => {
+              return (
+                <Li id={name} key={name}>
+                  <Link to={`/exercise/${id}`} style={style}>
+                    <ListElement name={name} duration={duration} />
+                  </Link>
+                </Li>
+              );
+            })}
+        </List>
+      </View>
+    )
   );
 };
 

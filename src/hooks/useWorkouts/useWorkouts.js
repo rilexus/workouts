@@ -1,7 +1,7 @@
 import workouts from "../../workouts";
 
 const useWorkouts = () => {
-  return workouts;
+  return { data: workouts, status: "resolved", error: null };
 };
 
 export default useWorkouts;

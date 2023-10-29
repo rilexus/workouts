@@ -5,7 +5,7 @@ import { PrimaryTitle, Header, List, View } from "ui/components";
 import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 
 const WorkoutsList = () => {
-  const workouts = useWorkouts();
+  const { data: workouts } = useWorkouts();
   const [speech, speak] = useSpeech();
 
   return (
