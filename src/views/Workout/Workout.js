@@ -15,6 +15,7 @@ import {
 } from "ui/components";
 import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 import exercises from "../../workouts/exercises";
+import { STATUS } from "hooks/usePromise/usePromise";
 
 const ExerciseName = styled.h2`
   ${elasticFontSize(30, 70, 300, 1000)}
@@ -34,28 +35,30 @@ const View = styled.div`
   position: relative;
 `;
 
-const Workout = () => {
-  let { id } = useParams();
-  const { data: workout } = useWorkout(id);
+const Execute = ({ workout }) => {
   const navigate = useNavigate();
-  const [speech, speak] = useSpeech();
+  const id = workout.id;
+  const [speak] = useSpeech();
 
   const [exerciseIndex, setExerciseIndex] = useState(0);
 
-  const exercises = workout.exercises;
-  const currentExerciseId = exercises[exerciseIndex];
+  const exercises = workout?.exercises;
+  const currentExercise = exercises?.[exerciseIndex];
 
-  const currentExercise = useExercise(currentExerciseId);
-  const duration = currentExercise.duration;
+  const duration = currentExercise?.duration;
 
-  const exercisesCount = exercises.length;
+  const exercisesCount = exercises?.length;
+
+  console.log({ duration });
 
   const [countdown, { pause, reset, stop, state, start }] = useCountdown({
     sec: duration,
   });
 
   useEffect(() => {
-    speak(countdown);
+    if (countdown) {
+      speak(countdown);
+    }
   }, [countdown]);
 
   const handleStop = useCallback(() => {
@@ -126,6 +129,16 @@ const Workout = () => {
       </div>
     </View>
   );
+};
+
+const Workout = () => {
+  let { id } = useParams();
+
+  const { data: workout, status: workoutStatus } = useWorkout(id);
+
+  return workoutStatus === STATUS.RESOLVED ? (
+    <Execute workout={workout} />
+  ) : null;
 };
 
 export default Workout;

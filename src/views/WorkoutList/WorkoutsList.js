@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useWorkouts } from "hooks/useWorkouts";
 import { PrimaryTitle, Header, List, View } from "ui/components";
@@ -6,7 +6,7 @@ import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 
 const WorkoutsList = () => {
   const { data: workouts } = useWorkouts();
-  const [speech, speak] = useSpeech();
+  const [speak] = useSpeech();
 
   return (
     <View>

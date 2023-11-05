@@ -6,4 +6,4 @@ const forEach = async (array, callback) => {
   }
 };
 
-export { sleep, forEach };
+module.exports = { sleep, forEach };

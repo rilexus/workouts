@@ -2,7 +2,7 @@ import React from "react";
 
 const style = {
   fontWeight: 600,
-  fontSize: "2rem",
+  fontSize: "1.5rem",
 };
 
 const PrimaryTitle = ({ children }) => {

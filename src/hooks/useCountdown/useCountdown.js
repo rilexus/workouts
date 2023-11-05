@@ -13,18 +13,29 @@ const useCountdown = ({ sec, onDone, immediate = true }) => {
 
   const [countdown, setCountdown] = useState(sec);
 
+  useEffect(() => {
+    setCountdown(sec);
+  }, [sec]);
+
   const pause = useCallback(() => {
     setState(COUNTDOWN_STATE.PAUSED);
   }, []);
 
   const start = useCallback(() => {
-    setState(COUNTDOWN_STATE.RUNNING);
-  }, []);
+    if (countdown) {
+      setState(COUNTDOWN_STATE.RUNNING);
+    }
+  }, [countdown]);
 
-  const reset = useCallback((sec) => {
-    setState(COUNTDOWN_STATE.IDLE);
-    setCountdown(sec);
-  }, []);
+  const reset = useCallback(
+    (sec) => {
+      if (sec) {
+        setState(COUNTDOWN_STATE.IDLE);
+        setCountdown(sec);
+      }
+    },
+    [sec]
+  );
 
   const decrement = useCallback(() => {
     if (state === COUNTDOWN_STATE.RUNNING && countdown > 0) {

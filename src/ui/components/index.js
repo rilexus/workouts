@@ -6,3 +6,6 @@ export * from "./ThemeProvider";
 export * from "./Center";
 export * from "./Countdown";
 export * from "./Header";
+export * from "./Flex";
+export * from "./Absolute/Absolute";
+export * from "./Flex/Flex";

@@ -16,7 +16,7 @@ const speak = (text) => {
   window.speechSynthesis.speak(speech);
 };
 
-const value = [speech, speak];
+const value = [speak, speech];
 
 const SpeechProvider = ({ children }) => {
   return (
