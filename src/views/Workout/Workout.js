@@ -12,6 +12,7 @@ import {
   PlayButton,
   Header,
   PrimaryTitle,
+  BackButton,
 } from "ui/components";
 import { useSpeech } from "../../providers/SpeechProvider/SpeechProvider";
 import exercises from "../../workouts/exercises";
@@ -49,8 +50,6 @@ const Execute = ({ workout }) => {
 
   const exercisesCount = exercises?.length;
 
-  console.log({ duration });
-
   const [countdown, { pause, reset, stop, state, start }] = useCountdown({
     sec: duration,
   });
@@ -81,10 +80,13 @@ const Execute = ({ workout }) => {
     }
   }, [countdown, state, nextExercise]);
 
+  console.log({ currentExercise });
+
   return (
     <View>
       <Header>
         <Center>
+          <BackButton to={""} />
           <PrimaryTitle>{workout.name}</PrimaryTitle>
         </Center>
       </Header>

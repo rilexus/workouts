@@ -1,13 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Header, PrimaryTitle, View } from "ui/components";
+import { BackButton, Header, PrimaryTitle, View } from "ui/components";
 
 const Exercise = () => {
   const { id } = useParams();
   return (
     <View>
       <Header>
-        <PrimaryTitle>Workouts</PrimaryTitle>
+        <BackButton to={"../"} />
+        <PrimaryTitle>Exercise</PrimaryTitle>
       </Header>
       <div>Exercise</div>
     </View>

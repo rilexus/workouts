@@ -1,23 +1,31 @@
-import React, { useEffect } from "react";
-import { Absolute, Header, List, MainButton, View } from "ui/components";
+import React from "react";
+import {
+  BackButton,
+  Flex,
+  Header,
+  List,
+  MainButton,
+  View,
+} from "ui/components";
 import styled from "styled-components";
 import { PrimaryTitle } from "ui/components";
 import { Link, useParams } from "react-router-dom";
 import { useStyle, useWorkout } from "hooks";
 import { ArrowRightOutlined } from "ui/icons";
-import { useExercises } from "hooks/useExercises";
 import { STATUS } from "hooks/usePromise/usePromise";
 import { useLink } from "../../providers/LinkProvider";
 import { Fixed } from "ui/components/Fixed/Fixed";
-import { dropShadowSm } from "ui/css";
+import { dropShadowMd } from "ui/css";
 
 const Li = styled(List.Element)`
   padding: 0;
 `;
 
 const StartButton = styled(MainButton)`
-  ${dropShadowSm};
+  ${dropShadowMd};
   width: 100%;
+  color: black;
+  background-color: orange;
 `;
 
 const ListElement = ({ name, duration }) => {
@@ -52,6 +60,7 @@ const ListElement = ({ name, duration }) => {
 
 const ExerciseList = () => {
   const { id } = useParams();
+
   const { data: workout, status } = useWorkout(id);
   const fetch = useLink();
 
@@ -76,7 +85,10 @@ const ExerciseList = () => {
     status === STATUS.RESOLVED && (
       <View data-testid="ExerciseList">
         <Header>
-          <PrimaryTitle>{workout.name}</PrimaryTitle>
+          <Flex align={"center"}>
+            <BackButton to={"../"} />
+            <PrimaryTitle>{workout.name}</PrimaryTitle>
+          </Flex>
         </Header>
         <div
           style={{
@@ -87,7 +99,7 @@ const ExerciseList = () => {
             {workout.exercises.map(({ id, duration, name }) => {
               return (
                 <Li id={name} key={id}>
-                  <Link to={`/exercise/${id}`} style={style}>
+                  <Link to={`exercise/${id}`} style={style}>
                     <ListElement name={name} duration={duration} />
                   </Link>
                 </Li>
@@ -97,7 +109,7 @@ const ExerciseList = () => {
         </div>
         <Fixed
           style={{
-            bottom: "1rem",
+            bottom: "1.5rem",
             width: "calc(100% - 2rem)",
           }}
         >

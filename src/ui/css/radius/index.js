@@ -18,5 +18,16 @@ const rounded2xl = css`
 const rounded3xl = css`
   border-radius: 1.5rem; /* 24px */
 `;
+const rounded4xl = css`
+  border-radius: 2rem; /* 24px */
+`;
 
-export { rounded, roundedMd, roundedLg, roundedXl, rounded2xl, rounded3xl };
+export {
+  rounded,
+  roundedMd,
+  roundedLg,
+  roundedXl,
+  rounded2xl,
+  rounded3xl,
+  rounded4xl,
+};

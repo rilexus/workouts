@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { rounded2xl } from "ui/css";
+import { rounded4xl } from "ui/css";
 import StylelessButton from "ui/components/buttons/StylelessButton/StylelessButton";
 
 const Button = styled(StylelessButton)`
   padding: 1rem 2rem;
-  ${rounded2xl};
+  ${rounded4xl};
   background-color: #232323;
 
   transform: scale(1);
